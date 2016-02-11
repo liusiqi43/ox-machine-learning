@@ -1,0 +1,46 @@
+1. Very briefly, assuming we have defined t as:
+local t = torch.Tensor({{1,2,3},{4,5,6},{7,8,9}})
+List 3 expressions that can replace the first line below to slice (extract) the middle column
+from t:
+local col = ... -- extract the middle col from t
+print(col) -- should print the 1-d tensor: 2,5,8
+(Remember: if you’re using the interactive interpreter as opposed to a text editor, you
+need to remove the local keywords.)
+
+    a) t:narrow(2,2,1)
+    b) t:select(2,2)
+    c) t:sub(1,3,2,2) or t:sub(1,-1,2,2)
+
+2. What is the difference between a Tensor and a Storage?
+Tensor is a view of the underlying storage. Multiple Tensor could refer to the same underlying Storage. 
+tensor:storage() provides access to the underlying storage.
+tensor:stride() gives the stride along each dimension.
+
+tensor[x][y][z] = tensor:storage()[tensor:storageOffset() + (x-1) * tensor:stride(1) + (y-1) * tensor:stride(2) + (z-1) * tensor:stride(3)]
+
+• Why is the local keyword important? (hint: default variable scope is not local)
+    In Lua, the default scope of variables is global, meaning that the variables 
+
+• What is the difference between a.f() and a:f()? (hint: one implicitly adds self as the
+first argument)
+    a:f() implicitly add self as the first argument. 
+
+• What does require do, and why do we sometimes capture its return value but sometimes
+not? (this is a way to isolate things into namespaces to prevent naming conflicts, related
+to the answer to why we need to use local)
+    In each module, variables are by default global. If we capture the return value of require, then we can avoid
+adding all global variables in the namespace. Locals are invisible outside if we capture the returned value.
+
+• What is the Lua equivalent of a list object? of a dictionary? How do you iterate over each
+of these?
+
+    Using tables as dictionaries / maps:
+    Dict literals have string keys by default:
+    t = {key1 = 'value1', key2 = false}
+    u = {['@!#'] = 'qbert', [{}] = 1729, [6.28] = 'tau'}
+    Using tables as lists / arrays:
+    List literals implicitly set up int keys:
+    v = {'value1', 'value2', 1.21, 'gigawatts'}
+    for i = 1, #v do  -- #v is the size of v for lists.
+      print(v[i])  -- Indices start at 1 !! SO CRAZY!
+      end
