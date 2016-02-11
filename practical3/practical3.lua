@@ -167,6 +167,13 @@ local feval = function(x)
   -- 4. use gradients to update weights, we'll understand this step more next week
   model:backward(batch_inputs, dloss_doutput)
 
+
+  
+  if torch.random(100) < 5 then
+    gradient_checker(batch_inputs, batch_targets, gradParameters)
+  end
+
+
   -- optim expects us to return
   --     loss, (gradient of loss with respect to the weights that we're optimizing)
   return batch_loss, gradParameters
@@ -178,13 +185,36 @@ function eval(inputs, targets)
   local _, predicted_labels = outputs:max(2)
   predicted_labels = torch.squeeze(predicted_labels):double()
   local misclass = 1 - predicted_labels:eq(targets:double()):sum() / predicted_labels:size(1)
-
   return loss, misclass
 end
   
 ------------------------------------------------------------------------
 -- OPTIMIZE: FIRST HANDIN ITEM
 ------------------------------------------------------------------------
+
+function gradient_checker(batch_inputs, batch_targets, gradParameters)
+    local current_params = parameters:clone()
+    local eps = 1e-4
+
+    local diff = {}
+    for i = 1, parameters:size(1) do
+        parameters[i] = current_params[i] + eps
+        local batch_loss_upper = criterion:forward(model:forward(batch_inputs), batch_targets)
+        parameters[i] = current_params[i] - eps
+        local batch_loss_lower = criterion:forward(model:forward(batch_inputs), batch_targets)
+        diff[#diff + 1]  = (batch_loss_upper - batch_loss_lower) / (2 * eps) - gradParameters[i]
+        -- reset
+        parameters[i] = current_params[i]
+    end
+    local max_diff = torch.Tensor(diff):max()
+    if max_diff > eps then
+        print('[gradient checker]: max_diff with eps ' .. eps .. ' exceeds ' .. max_diff)
+    else
+        print('[gradient checker]: passed')
+    end
+end
+
+
 local losses = {}          -- training losses for each iteration/minibatch
 local eval_iter = {}          -- test losses for each iteration/minibatch
 local test_losses = {}          -- test losses for each iteration/minibatch
