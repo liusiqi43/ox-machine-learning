@@ -396,3 +396,64 @@ Accuracy = 100% (10000/10000) (classification)
 Accuracy = 95.8% (1916/2000) (classification)
 Accuracy = 100% (10000/10000) (classification)
 -q -g 0.125 -c 4	
+Accuracy = 80.3% (1606/2000) (classification)
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.0078125 -c 8	
+Accuracy = 96.8% (1936/2000) (classification)
+Accuracy = 99.88% (9988/10000) (classification)
+-q -g 0.015625 -c 8	
+Accuracy = 97.25% (1945/2000) (classification)
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.03125 -c 8	
+Accuracy = 97.55% (1951/2000) (classification)
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.0625 -c 8	
+Accuracy = 95.8% (1916/2000) (classification)
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.125 -c 8	
+Accuracy = 80.3% (1606/2000) (classification)
+Accuracy = 100% (10000/10000) (classification)
+C_medium*[2]:1 G_medium*[3]:0.03125 best_acc:	97.55	
+
+Performing grid search: Small grid; medium dataset
+	
+-q -g 0.020833333333333 -c 0.66666666666667	
+Accuracy = 96.65% (1933/2000) (classification)
+best_acc: 96.65	
+Accuracy = 98.73% (9873/10000) (classification)
+-q -g 0.03125 -c 0.66666666666667	
+Accuracy = 96.95% (1939/2000) (classification)
+best_acc: 96.95	
+Accuracy = 99.28% (9928/10000) (classification)
+-q -g 0.046875 -c 0.66666666666667	
+Accuracy = 96.35% (1927/2000) (classification)
+Accuracy = 99.67% (9967/10000) (classification)
+-q -g 0.020833333333333 -c 1	
+Accuracy = 97.25% (1945/2000) (classification)
+best_acc: 97.25	
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.03125 -c 1	
+Accuracy = 97.55% (1951/2000) (classification)
+best_acc: 97.55	
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.046875 -c 1	
+Accuracy = 97.1% (1942/2000) (classification)
+Accuracy = 100% (10000/10000) (classification)
+-q -g 0.020833333333333 -c 1.5	
+Accuracy = 97.25% (1945/2000) (classification)
+Accuracy = 99.77% (9977/10000) (classification)
+-q -g 0.03125 -c 1.5	
+Accuracy = 97.5% (1950/2000) (classification)
+Accuracy = 99.93% (9993/10000) (classification)
+-q -g 0.046875 -c 1.5	
+Accuracy = 97.1% (1942/2000) (classification)
+Accuracy = 99.97% (9997/10000) (classification)
+C_large*[2]:1 G_large*[2]:0.03125 best_acc:	97.55	
+
+
+Training on full training data with best parameters picked by grid search.
+
+	
+Accuracy = 98.47% (9847/10000) (classification)
+Performing grid search: Large grid; small dataset
+	

@@ -92,6 +92,7 @@ gnuplot.xlabel('log(C)')
 gnuplot.ylabel('log(G)')
 gnuplot.scatter3({'validation', tC_searched, tG_searched, tValid_acc}, 
                  {'train', tC_searched, tG_searched, tTrain_acc})
+gnuplot.figprint('plot_grid_1.fig')
 
 
 -- Use these to do grid search on the medium training and validation sets
@@ -140,22 +141,21 @@ gnuplot.xlabel('log(C)')
 gnuplot.ylabel('log(G)')
 gnuplot.scatter3({'validation', tC_searched, tG_searched, tValid_acc}, 
                  {'train', tC_searched, tG_searched, tTrain_acc})
+gnuplot.figprint('plot_grid_2.fig')
 
 
 -------------- polynomial kernel ------------------
 function poly_grid_search(train_data, validation_data, C) 
         local best_acc, best_i = 0, -1
         for i = 1, #C do
-                for j = 1, #G do
-                        local cmd = '-q -t 1 -d 2 -c ' .. C[i]
-                        print(cmd)
-                        local model = libsvm.train(train_data, cmd)
-                        local _, acc, _ = libsvm.predict(validation_data, model)
-                        if acc[1] > best_acc then
-                                best_acc, best_i, best_j = acc[1], i, j
-                                print('best_acc: ' .. best_acc)
-                        end
-                end
+          local cmd = '-q -t 1 -d 2 -c ' .. C[i]
+          print(cmd)
+          local model = libsvm.train(train_data, cmd)
+          local _, acc, _ = libsvm.predict(validation_data, model)
+          if acc[1] > best_acc then
+                  best_acc, best_i, best_j = acc[1], i, j
+                  print('best_acc: ' .. best_acc)
+          end
         end
         return best_i, best_acc
 end
@@ -178,11 +178,9 @@ print('C_small*:' .. C_small[i] .. ' best_acc:', best_acc)
 
 -- Use these to do grid search on the medium training and validation sets
 C_medium = {}
-G_medium = {}
 C_medium[1] = C_small[i]/4
 for i=2, 5 do
 	C_medium[i] = C_medium[i-1] * 2
- 	G_medium[i] = G_medium[i-1] * 2
 end
 
 
@@ -193,7 +191,6 @@ print('C_medium*['..i..']:' .. C_medium[i] .. ' best_acc:', best_acc)
 
 
 C_large = {}
-G_large = {}
 C_large[1] = C_medium[i]/1.5
 for i=2, 3 do
 	C_large[i] = C_large[i-1] * 1.5
