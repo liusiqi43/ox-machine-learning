@@ -92,7 +92,7 @@ gnuplot.xlabel('log(C)')
 gnuplot.ylabel('log(G)')
 gnuplot.scatter3({'validation', tC_searched, tG_searched, tValid_acc}, 
                  {'train', tC_searched, tG_searched, tTrain_acc})
-gnuplot.figprint('plot_grid_1.fig')
+gnuplot.figprint('plot_grid_1.pdf')
 
 
 -- Use these to do grid search on the medium training and validation sets
@@ -141,7 +141,7 @@ gnuplot.xlabel('log(C)')
 gnuplot.ylabel('log(G)')
 gnuplot.scatter3({'validation', tC_searched, tG_searched, tValid_acc}, 
                  {'train', tC_searched, tG_searched, tTrain_acc})
-gnuplot.figprint('plot_grid_2.fig')
+gnuplot.figprint('plot_grid_2.pdf')
 
 
 -------------- polynomial kernel ------------------
