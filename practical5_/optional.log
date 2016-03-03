@@ -1,0 +1,21 @@
+* Explain why we initialize the bias to random numbers larger than 0. What happens if we
+initialize it to a value below zero? Does this affect our ability to train?
+
+Similarly to ReLU, ReQU also suffers from dead units problem. Because the gradient backpropagated through ReQU unit is multiplied by its local gradient, if we initialize bias to negative value, then the local gradients are likely to be zero. This would therefore block the gradients from backpropagating through ReQU units and hinder the training process.
+
+
+2. Suppose we have a simple network of the shape (linear => sigmoid => linear => sigmoid
+=> . . . => linear). Write out the chain rule for computing the derivative of the final
+outputs of this network with respect to the parameters of the first linear layer. What can
+you say about the vanishing gradient problem using this expression?
+
+In deep architecture like this, the gradient backpropagated from the output to the first layer will be a product of all the derivatives along the way.
+
+dloss/dxn = dloss/dzn * dzn/dxn
+dloss/dz(n-1) = dloss/dxn * dxn/dz(n-1) ---- gradOutput for layer n-1.
+...
+dloss/dx(1) = dloss/dzn * dzn/dxn * dxn/dz(n-1) * ... * dz1/dx1
+
+Each local gradient (for sigmoid units) are in [0, 1] so the gradient backpropaged to dx(1) will be very small.
+
+
